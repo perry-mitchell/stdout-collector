@@ -5,7 +5,10 @@ const bodyParser = require("body-parser");
 const { green, red, bgRgb, black } = require("chalk");
 const chalk = require("chalk");
 const pad = require("pad");
+const minimist = require("minimist");
 
+const args = minimist(process.argv.slice(2));
+const port = (args.port && parseInt(args.port, 10)) || 8888;
 const app = express();
 app.use(bodyParser.json());
 
@@ -62,6 +65,6 @@ app.post("/", (req, res) => {
     );
 });
 
-app.listen(8888, () => {
-    console.log("Listening on 8888");
+app.listen(port, () => {
+    console.log(`Listening on ${port}`);
 });

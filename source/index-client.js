@@ -5,11 +5,19 @@ const uuid = require("uuid/v4");
 const { dim, red } = require("chalk");
 const minimist = require("minimist");
 
-const ADDRESS = "http://localhost:8888";
 const CLIENT = uuid();
 
 const args = minimist(process.argv.slice(2));
+const { _: newTargets } = args;
+const targets = newTargets.map(target => {
+    const out = /:\d{1,6}\/?$/.test(target) ? target : `${target.replace(/\/$/, "")}:8888`;
+    return /^https?:/.test(out) ? out : `http://${out}`;
+});
 const lines = [];
+
+if (!targets || targets.length === 0) {
+    throw new Error(`Failed to start: no target receivers specified`);
+}
 
 process.stdin.resume();
 process.stdin.on("data", function(data) {
@@ -46,13 +54,17 @@ function sendLines() {
     if (args.name && args.name.length > 0) {
         data.name = args.name;
     }
-    fetch(ADDRESS, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
+    return Promise.all(
+        targets.map(target =>
+            fetch(target, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+        )
+    )
         .then(() => {
             sendingLines.forEach(line => {
                 console.log(`${dim("⇒")} ${line}`);
