@@ -1,6 +1,6 @@
 {
   "name": "stdout-collector",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Route stdout between computers and terminals",
   "main": "source/index.js",
   "scripts": {
