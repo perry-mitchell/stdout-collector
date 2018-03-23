@@ -2,6 +2,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const { green, red } = require("chalk");
 
 const app = express();
 app.use(bodyParser.json());
@@ -26,7 +27,7 @@ app.post("/", (req, res) => {
     const isNew = isNewClient(id);
     const clientIndex = getClientIndex(id);
     if (isNew) {
-        console.log(`√ Connected: ${ip} (${clientIndex})`);
+        console.log(`${green("✔")} Connected: ${ip} (${clientIndex})`);
     }
     console.log(`${clientIndex} » ${line}`);
     res.send(
