@@ -1,0 +1,35 @@
+{
+  "name": "stdout-collector",
+  "version": "0.0.0",
+  "description": "Route stdout between computers and terminals",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "stdsend": "./source/index-client.js",
+    "stdrecv": "./source/index-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/perry-mitchell/stdout-collector.git"
+  },
+  "keywords": [
+    "stdout",
+    "route",
+    "terminal"
+  ],
+  "author": "Perry Mitchell <perry@perrymitchell.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/perry-mitchell/stdout-collector/issues"
+  },
+  "homepage": "https://github.com/perry-mitchell/stdout-collector#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "minimist": "^1.2.0",
+    "node-fetch": "^2.1.1",
+    "uuid": "^3.2.1"
+  }
+}
