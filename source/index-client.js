@@ -2,7 +2,7 @@
 
 const fetch = require("node-fetch");
 const uuid = require("uuid/v4");
-const { green, red } = require("chalk");
+const { dim, red } = require("chalk");
 
 const ADDRESS = "http://localhost:8888";
 const CLIENT = uuid();
@@ -39,13 +39,11 @@ function sendLine() {
         body: JSON.stringify({ line, id: CLIENT })
     })
         .then(() => {
-            console.log(`${green("✔")} ${line}`);
-            console.log(line);
+            console.log(`${dim("⇒")} ${line}`);
             sendLine();
         })
         .catch(err => {
-            console.log(`${red("✘")} ${line}`);
-            //lines.unshift(line);
+            console.log(`${red("⇒")} ${line}`);
             sendLine();
         });
 }
