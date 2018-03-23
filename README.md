@@ -49,3 +49,10 @@ You can specify 1 or more destination addresses. All of the following are valid:
  * `192.168.0.1` (port: `8888`)
  * `localhost:3333`
  * `http://server.com` (port: `8888`)
+
+## Potential issues
+Some CLI apps do funny things to their output in terms of buffering. Some times you can get around this by using `stdbuf`. For example, some cryptocurrency miners don't buffer by line, which can be fixed by running:
+
+```shell
+stdbuf -oL -eL ./miner | stdsend 192.168.0.100 --name="Rig01"
+```
