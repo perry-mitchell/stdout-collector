@@ -36,6 +36,7 @@
   "homepage": "https://github.com/perry-mitchell/stdout-collector#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "chalk": "^2.3.2",
     "express": "^4.16.3",
     "minimist": "^1.2.0",
     "node-fetch": "^2.1.1",

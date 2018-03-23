@@ -2,6 +2,7 @@
 
 const fetch = require("node-fetch");
 const uuid = require("uuid/v4");
+const { green, red } = require("chalk");
 
 const ADDRESS = "http://localhost:8888";
 const CLIENT = uuid();
@@ -10,8 +11,12 @@ const lines = [];
 
 process.stdin.resume();
 process.stdin.on("data", function(data) {
-    //process.stdout.write("■ " + data);
-    lines.push(data.toString("utf8").trim());
+    lines.push(
+        ...data
+            .toString("utf8")
+            .trim()
+            .split("\n")
+    );
 });
 process.stdout.on("error", function(err) {
     if (err.code === "EPIPE") {
@@ -34,12 +39,12 @@ function sendLine() {
         body: JSON.stringify({ line, id: CLIENT })
     })
         .then(() => {
-            console.log(`✔ ${line}`);
+            console.log(`${green("✔")} ${line}`);
             console.log(line);
             sendLine();
         })
         .catch(err => {
-            console.log(`✘ ${line}`);
+            console.log(`${red("✘")} ${line}`);
             //lines.unshift(line);
             sendLine();
         });
