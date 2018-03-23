@@ -4,11 +4,20 @@
   "description": "Route stdout between computers and terminals",
   "main": "source/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --write '{source,test}/**/*.js'",
+    "precommit": "lint-staged",
+    "test": "npm run test:format",
+    "test:format": "prettier-check '{source,test}/**/*.js'"
   },
   "bin": {
     "stdsend": "./source/index-client.js",
     "stdrecv": "./source/index-server.js"
+  },
+  "lint-staged": {
+    "{source,test}/**/*.js": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -31,5 +40,11 @@
     "minimist": "^1.2.0",
     "node-fetch": "^2.1.1",
     "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.0",
+    "prettier": "^1.11.1",
+    "prettier-check": "^2.0.0"
   }
 }
