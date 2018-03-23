@@ -3,10 +3,12 @@
 const fetch = require("node-fetch");
 const uuid = require("uuid/v4");
 const { dim, red } = require("chalk");
+const minimist = require("minimist");
 
 const ADDRESS = "http://localhost:8888";
 const CLIENT = uuid();
 
+const args = minimist(process.argv.slice(2));
 const lines = [];
 
 process.stdin.resume();
@@ -36,12 +38,19 @@ function sendLine() {
         return;
     }
     const line = lines.shift();
+    const data = {
+        line,
+        id: CLIENT
+    };
+    if (args.name && args.name.length > 0) {
+        data.name = args.name;
+    }
     fetch(ADDRESS, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ line, id: CLIENT })
+        body: JSON.stringify(data)
     })
         .then(() => {
             console.log(`${dim("⇒")} ${line}`);
