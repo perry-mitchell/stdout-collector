@@ -2,13 +2,20 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const { green, red, bgBlue, bgGreen, bgRed, bgYellow, black } = require("chalk");
+const { green, red, bgRgb, black } = require("chalk");
+const chalk = require("chalk");
 const pad = require("pad");
 
 const app = express();
 app.use(bodyParser.json());
 
-const COLOURS = [bgBlue, bgGreen, bgRed, bgYellow];
+const COLOURS = [
+    chalk.bgRgb(193, 166, 224), // violet
+    chalk.bgRgb(242, 225, 152), // yellow
+    chalk.bgRgb(194, 148, 225), // lavender
+    chalk.bgRgb(186, 209, 158), // green
+    chalk.bgRgb(226, 133, 219) // violet
+];
 
 const clientIDs = [];
 const clientColours = [];
