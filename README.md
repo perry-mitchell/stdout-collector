@@ -3,6 +3,8 @@
 
 [![Build Status](https://travis-ci.org/perry-mitchell/stdout-collector.svg?branch=master)](https://travis-ci.org/perry-mitchell/stdout-collector)
 
+![2 terminals into 1](https://raw.githubusercontent.com/perry-mitchell/stdout-collector/master/stdout-collector.jpg)
+
 ## About
 Having applications running in many terminals and machines can be troublesome to monitor. Setting up log sending/fetching may be a bit too tedious a task for some projects. `stdout-collector` provides an intermediate solution by allowing for easy redirection of application `stdout` streams to one destination.
 
