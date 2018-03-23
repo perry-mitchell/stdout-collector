@@ -32,14 +32,15 @@ process.stdout.on("error", function(err) {
     process.emit("error", err);
 });
 
-function sendLine() {
+function sendLines() {
     if (lines.length === 0) {
-        setTimeout(sendLine, 100);
+        setTimeout(sendLines, 100);
         return;
     }
-    const line = lines.shift();
+    const sendingLines = [...lines];
+    lines.splice(0, lines.length);
     const data = {
-        line,
+        lines: sendingLines,
         id: CLIENT
     };
     if (args.name && args.name.length > 0) {
@@ -53,13 +54,17 @@ function sendLine() {
         body: JSON.stringify(data)
     })
         .then(() => {
-            console.log(`${dim("⇒")} ${line}`);
-            sendLine();
+            sendingLines.forEach(line => {
+                console.log(`${dim("⇒")} ${line}`);
+            });
+            sendLines();
         })
         .catch(err => {
-            console.log(`${red("⇒")} ${line}`);
-            sendLine();
+            sendingLines.forEach(line => {
+                console.log(`${red("⇒")} ${line}`);
+            });
+            sendLines();
         });
 }
 
-sendLine();
+sendLines();

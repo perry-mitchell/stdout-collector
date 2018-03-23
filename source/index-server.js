@@ -43,7 +43,7 @@ function isNewClient(id) {
 
 app.post("/", (req, res) => {
     const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-    const { line, id, name } = req.body;
+    const { lines, id, name } = req.body;
     const isNew = isNewClient(id);
     const clientIndex = getClientIndex(id);
     const colour = getClientColour(id);
@@ -52,7 +52,9 @@ app.post("/", (req, res) => {
     }
     const clientName = name || `#${clientIndex}`;
     const formattedName = colour.black(` ${pad(clientName, 5, { strip: true })} `);
-    console.log(`${formattedName} ${line}`);
+    lines.forEach(line => {
+        console.log(`${formattedName} ${line}`);
+    });
     res.send(
         JSON.stringify({
             status: "ok"
