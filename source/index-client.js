@@ -18,9 +18,14 @@ process.stdin.on("data", function(data) {
             .split("\n")
     );
 });
+process.stdin.on("end", function() {
+    setTimeout(() => {
+        process.exit(0);
+    }, 250);
+});
 process.stdout.on("error", function(err) {
     if (err.code === "EPIPE") {
-        return process.exit();
+        return process.exit(1);
     }
     process.emit("error", err);
 });
